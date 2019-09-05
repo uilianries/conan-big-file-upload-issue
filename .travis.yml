@@ -1,0 +1,13 @@
+os: linux
+dist: xenial
+language: python
+python: "3.7"
+
+install:
+  - pip install conan
+  - conan remote add uilianries https://api.bintray.com/conan/uilianries/conan
+
+script:
+  - dd if=/dev/urandom of=sample.txt bs=3G count=100
+  - conan create . uilianries/stable
+  - conan upload foo/0.1.0@uilianries/stable -r uilianries --all
